@@ -1,0 +1,12 @@
+name: hubchat_example
+description: Example app for the hubchat package.
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hubchat:
+    path: ../

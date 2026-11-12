@@ -5,3 +5,5 @@ pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .idea/
+example/.dart_tool/
+example/build/

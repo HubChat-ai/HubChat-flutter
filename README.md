@@ -2,12 +2,15 @@
 
 ویجت چت پشتیبانی هاب‌چت برای اپ فلاتر، با همان ظاهر و امکانات ویجت سایت.
 
+```bash
+flutter pub add hubchat
+```
+
+یا در `pubspec.yaml`:
+
 ```yaml
 dependencies:
-  hubchat:
-    git:
-      url: https://github.com/HubChat-ai/hubchat-flutter.git
-      ref: 1.0.0
+  hubchat: ^1.0.1
 ```
 
 ```dart
