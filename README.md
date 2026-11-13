@@ -21,7 +21,7 @@ flutter pub add hubchat
 
 ```yaml
 dependencies:
-  hubchat: ^1.0.1
+  hubchat: ^1.0.2
 ```
 
 ## استفاده

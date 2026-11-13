@@ -1,6 +1,6 @@
 name: hubchat
 description: HubChat live chat support widget for Flutter apps on iOS and Android, with the same look and features as the HubChat website widget.
-version: 1.0.1
+version: 1.0.2
 homepage: https://hubchat.ir
 issue_tracker: https://github.com/HubChat-ai/HubChat-flutter/issues
 topics:
