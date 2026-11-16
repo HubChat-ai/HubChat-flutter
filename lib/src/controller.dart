@@ -65,6 +65,24 @@ class HubChatController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Map<String, String>? _screen;
+
+  /// Tells operators which app screen the user is on (shown next to the chat and in
+  /// the panel's visit stats). Call it from your router/navigator observer.
+  void setScreen(String name, {String? title}) {
+    final path = name.trim().replaceAll(RegExp(r'^/+'), '');
+    if (path.isEmpty) return;
+    _screen = {'url': 'app://screen/${Uri.encodeFull(path)}', 'title': title ?? name};
+    _sendScreen();
+  }
+
+  void _sendScreen() {
+    final screen = _screen;
+    if (screen == null || !_loaded) return;
+    final payload = jsonEncode({'source': 'hubchat-loader', 'type': 'page', ...screen});
+    _webView.runJavaScript("window.postMessage($payload,'*');").catchError((_) {});
+  }
+
   void _command(String type) {
     _webView.runJavaScript("window.postMessage({source:'hubchat-loader',type:'$type'},'*');").catchError((_) {});
   }
@@ -82,6 +100,7 @@ class HubChatController extends ChangeNotifier {
       case 'close':
         close();
       case 'ready':
+        _sendScreen();
         if (isOpen) _command('open');
       case 'unread':
         if (!isOpen) {

@@ -21,7 +21,7 @@ flutter pub add hubchat
 
 ```yaml
 dependencies:
-  hubchat: ^1.0.2
+  hubchat: ^1.0.3
 ```
 
 ## استفاده
@@ -38,6 +38,15 @@ ElevatedButton(onPressed: hubChat.open, child: const Text('پشتیبانی'));
 
 - `showLauncher: false` دکمه‌ی شناور را پنهان می‌کند تا فقط با `hubChat.open()` باز شود.
 - `hubChat.unread` و `hubChat.onEvent` برای نمایش تعداد پیام خوانده‌نشده در UI خودتان.
+
+
+### صفحه‌ی فعلی کاربر
+
+اپراتور کنار گفتگو می‌بیند کاربر الان در کدام صفحه‌ی اپ است و آن صفحه در آمار بازدید پنل هم می‌آید:
+
+```dart
+hubChat.setScreen('checkout', title: 'تکمیل خرید');
+```
 
 ## تنظیمات پلتفرم
 **اندروید:** `<uses-permission android:name="android.permission.INTERNET"/>` و `minSdk 21`.

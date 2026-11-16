@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+- `setScreen()` shows operators which app screen the user is on.
+- Redesigned contact info card inside the chat panel (server side).
+
 ## 1.0.2
 - Documentation for users.
 
