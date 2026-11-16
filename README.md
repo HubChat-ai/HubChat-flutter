@@ -21,7 +21,7 @@ flutter pub add hubchat
 
 ```yaml
 dependencies:
-  hubchat: ^1.0.3
+  hubchat: ^1.0.4
 ```
 
 ## استفاده
@@ -47,6 +47,22 @@ ElevatedButton(onPressed: hubChat.open, child: const Text('پشتیبانی'));
 ```dart
 hubChat.setScreen('checkout', title: 'تکمیل خرید');
 ```
+
+### معرفی کاربر لاگین‌کرده
+
+```dart
+hubChat.identify({
+  'user_id': user.id,
+  'name': user.fullName,
+  'mobile': user.mobile,
+  'custom': {'plan': 'VIP'},
+  'signature': signatureFromYourServer, // HMAC-SHA256 شناسه با کلید مخفی، روی سرور
+});
+
+hubChat.logout(); // هنگام خروج از حساب
+```
+
+همه‌ی فیلدها و روش ساخت امضا: https://hubchat.ir/docs/widget-identify
 
 ## تنظیمات پلتفرم
 **اندروید:** `<uses-permission android:name="android.permission.INTERNET"/>` و `minSdk 21`.

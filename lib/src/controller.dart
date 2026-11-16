@@ -76,6 +76,37 @@ class HubChatController extends ChangeNotifier {
     _sendScreen();
   }
 
+  Map<String, dynamic>? _identity;
+  bool _pendingLogout = false;
+
+  /// Identifies the logged-in user (name, mobile, email, national_code, …, `custom`
+  /// and the server-made `signature`). See https://hubchat.ir/docs/widget-identify
+  void identify(Map<String, dynamic> user) {
+    _identity = Map<String, dynamic>.from(user);
+    load();
+    _sendIdentity();
+  }
+
+  /// Call on sign-out: the chat of this user is cleared from the device.
+  void logout() {
+    _identity = null;
+    _pendingLogout = true;
+    load();
+    _sendIdentity();
+  }
+
+  void _sendIdentity() {
+    if (!_loaded) return;
+    if (_pendingLogout) {
+      _pendingLogout = false;
+      _webView.runJavaScript("window.postMessage({source:'hubchat-loader',type:'logout'},'*');").catchError((_) {});
+    }
+    final user = _identity;
+    if (user == null) return;
+    final payload = jsonEncode({'source': 'hubchat-loader', 'type': 'identify', 'user': user});
+    _webView.runJavaScript("window.postMessage($payload,'*');").catchError((_) {});
+  }
+
   void _sendScreen() {
     final screen = _screen;
     if (screen == null || !_loaded) return;
@@ -101,6 +132,7 @@ class HubChatController extends ChangeNotifier {
         close();
       case 'ready':
         _sendScreen();
+        _sendIdentity();
         if (isOpen) _command('open');
       case 'unread':
         if (!isOpen) {
